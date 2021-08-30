@@ -18,7 +18,7 @@
         </li>
         <div v-else>
           <li class="menu-item" >
-            <p v-if="$auth.loggedIn">Name:{{ $auth.user.name }}</p>
+            <p class="username" v-if="$auth.loggedIn">Name:{{ $auth.user.name }}</p>
             <a @click="logout">Logout</a>
           </li>
         </div>
@@ -73,11 +73,5 @@ header {
   padding-left: 10px;
 }
 
-a {
-  display: block;
-  margin-block-start: 1em;
-  margin-block-end: 1em;
-  margin-inline-start: 0px;
-  margin-inline-end: 0px;
-}
+
 </style>
