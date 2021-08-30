@@ -1,6 +1,13 @@
 <template>
   <header>
-    <h1 class="title">{{ $route.name }}</h1>
+    <h1
+      class="title"
+      @click="$router.push({
+        path: '/'
+      })"
+    >
+      Trace
+      </h1>
     <nav class="nav">
       <ul class="menu-group">
         <li class="menu-item" v-if="!$auth.loggedIn">
@@ -9,9 +16,13 @@
         <li class="menu-item" v-if="!$auth.loggedIn">
           <NuxtLink to="/login">Login</NuxtLink>
         </li>
-        <li class="menu-item" v-else>
-          <a @click="logout">Logout</a>
-        </li>
+        <div v-else>
+          <li class="menu-item" >
+            <p v-if="$auth.loggedIn">Name:{{ $auth.user.name }}</p>
+            <a @click="logout">Logout</a>
+          </li>
+        </div>
+        
       </ul>
     </nav>
   </header>
@@ -23,7 +34,7 @@ export default {
     async logout() {
       try {
         await this.$auth.logout();
-        this.$router.push("/login");
+        this.$router.push("/register");
       } catch (e) {
         
       }
@@ -33,25 +44,40 @@ export default {
 </script>
 
 <style scoped>
+.menu-group {
+  display: flex;
+}
+
 header {
   display: flex;
   height: 100px;
   padding: 0 50px;
-  margin-bottom: 30px;
-  background-color: darkgrey;
+  /* margin-bottom: 30px; */
+  background-color: white;
   align-items: center;
+  justify-content: space-around;
+  border-bottom: 1px solid rgb(228, 228, 228);
 }
 .title {
   margin-right: auto;
 }
 .menu-item {
   list-style: none;
-  display: inline-block;
+  display: flex;
   padding: 10px;
 }
 .menu-item a {
   color: black;
   text-decoration: none;
   cursor: pointer;
+  padding-left: 10px;
+}
+
+a {
+  display: block;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
 }
 </style>
